@@ -8,5 +8,6 @@ urlpatterns = [
     path('add-account/', views.add_account, name='add-account'), 
 
     #display 
-    path('list-buckets/', views.all_buckets, name='list-buckets')
+    path('bucket-list/', views.all_buckets, name='list-buckets'), 
+    path('items/<int:bucket_id>/', views.bucket_items, name='bucket_items')
 ]

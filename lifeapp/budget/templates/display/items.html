@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content%}
+<div class="table-responsive container">
+  <table>
+    <thead>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Date Incurred</th>
+    </thead>
+    <tbody>
+      {% for item in items%}
+      <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.date_incurred }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

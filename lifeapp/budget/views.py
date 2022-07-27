@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect 
 from .forms import BucketForm, ItemForm, AccountForm 
-from .models import Bucket
+from .models import Bucket, Item
 
 # Create your views here.
 def budget(request): 
@@ -38,4 +38,8 @@ def add_account(request):
 
 def all_buckets(request): 
     bucket_list = Bucket.objects.all() 
-    return render(request, 'display/bucket_list.html', {'buckets':bucket_list})
+    return render(request, 'display/bucket_list.html', {'buckets':bucket_list}) 
+
+def bucket_items(request, bucket_id): 
+    items = Item.objects.filter(bucket__id=bucket_id) 
+    return render(request, 'display/items.html', {'items': items})

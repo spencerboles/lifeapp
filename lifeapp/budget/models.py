@@ -14,7 +14,7 @@ class Item(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=Decimal('0.00')) 
     date_incurred = models.DateTimeField(default=datetime.now) 
     bucket = models.ForeignKey("Bucket", on_delete=models.CASCADE) 
-    is_revenue = models.BooleanField(default=False) 
+    #is_revenue = models.BooleanField(default=False) 
     
 
     def __str__(self): 
@@ -26,7 +26,8 @@ class Bucket(models.Model):
     description = models.TextField(null=True) 
     is_budget = models.BooleanField(default=True) 
     account = models.ForeignKey("Account", on_delete=models.CASCADE) 
-    # is_revenue = models.BooleanField(default=False) 
+    is_revenue = models.BooleanField(default=False) 
+    budget_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True) 
     def __str__(self): 
         return self.title 
 

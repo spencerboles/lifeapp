@@ -10,7 +10,7 @@ from django.utils.timezone import now
 class Item(models.Model):  
    
     title = models.CharField(max_length=150, null=False, default='Item') 
-    description = models.TextField(null=True) 
+    description = models.TextField(null=True, blank=True) 
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=Decimal('0.00')) 
     date_incurred = models.DateTimeField(default=datetime.now) 
     bucket = models.ForeignKey("Bucket", on_delete=models.CASCADE) 
@@ -23,7 +23,7 @@ class Item(models.Model):
 class Bucket(models.Model):  
     
     title = models.CharField(max_length=150, null=False, default='Bucket') 
-    description = models.TextField(null=True) 
+    description = models.TextField(null=True, blank=True) 
     is_budget = models.BooleanField(default=True) 
     account = models.ForeignKey("Account", on_delete=models.CASCADE) 
     is_revenue = models.BooleanField(default=False) 
@@ -34,7 +34,7 @@ class Bucket(models.Model):
 class Account(models.Model): 
     
     title = models.CharField(max_length=150, null=False, default='Checkings Account')
-    description = models.TextField(null=True) 
+    description = models.TextField(null=True, blank=True) 
     balance = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=Decimal('0.00')) 
 
     

@@ -12,7 +12,7 @@ class Item(models.Model):
     title = models.CharField(max_length=150, null=False, default='Item') 
     description = models.TextField(null=True, blank=True) 
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=Decimal('0.00')) 
-    date_incurred = models.DateTimeField(default=datetime.now) 
+    date_incurred = models.DateField(default=datetime.now) 
     bucket = models.ForeignKey("Bucket", on_delete=models.CASCADE) 
     #is_revenue = models.BooleanField(default=False) 
     
@@ -27,7 +27,7 @@ class Bucket(models.Model):
     is_budget = models.BooleanField(default=True) 
     account = models.ForeignKey("Account", on_delete=models.CASCADE) 
     is_revenue = models.BooleanField(default=False) 
-    budget_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True) 
+    budget_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True) 
     def __str__(self): 
         return self.title 
 

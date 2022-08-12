@@ -4,10 +4,21 @@
 <div class="jumbotron m-5">
   <h2 style="text-align: center">Create a {{ title }}</h2>
 </div>
+{% if success_message != null %} 
+<div class="alert alert-success" role="alert">
+  {{ success_message }}
+</div>  
+{% endif%} 
+{% if error_message != null%}  
+<div class="alert alert-danger" role="alert">
+  {{ error_message }}
+</div>
+{% endif %}
 <div
   class="form-group"
   style="display: flex; justify-content: center; align-content: space-between"
->
+> 
+ 
   <form method="post">
     <table>
       {{ form }}

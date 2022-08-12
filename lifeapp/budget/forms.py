@@ -24,7 +24,7 @@ class ItemForm(ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control mb-2 mt-2'}), 
             'description': forms.Textarea(attrs={'class': 'form-control mb-2 mt-2'}), 
             'amount': forms.NumberInput(attrs={'class': 'form-control mb-2 mt-2'}), 
-            'date_incurred': forms.DateTimeInput(attrs={'class': 'form-control mb-2 mt-2'}), 
+            'date_incurred': forms.DateInput(attrs={'class': 'form-control mb-2 mt-2'}), 
             'bucket': forms.Select(attrs={'class': 'form-control mb-2 mt-2'}), 
             'is_revenue': forms.CheckboxInput()
         } 

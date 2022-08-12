@@ -1,0 +1,12 @@
+.text-light-grey
+{
+    color: gray
+} 
+
+.dot {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(173, 42, 42);
+    border-radius: 50%;
+    display: inline-block;
+  }

@@ -1,0 +1,11 @@
+Item.objects.values('date_incurred').annotate(date_sum=Sum('amount'))
+
+Item.objects.values('date_incurred').filter(date_incurred__year__gte=2022, date_incurred__month__gte=8).annotate(date_sum=Sum('amount')) 
+
+gte lte
+
+
+results = Item.objects.select_related('bucket').values('bucket').annotate(bucket_sum=Sum('amount'))
+
+
+ Item.objects.filter(bucket__account=1)

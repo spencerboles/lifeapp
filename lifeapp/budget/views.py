@@ -105,3 +105,25 @@ def bucket_items_month(request, bucket_id, year, month):
 
 
     return render(request, 'display/items.html', {'items': items, 'chart':chart, 'bucket':bucket})
+
+def account_items(request, account_id):  
+    account = Account.objects.filter(id=account_id).first()
+    items = Item.objects.filter(bucket__account=account_id)  
+    total_spent = items.filter(date_incurred__year=2022, date_incurred__month=8).annotate(total_sum=Sum('amount')).aggregate(Sum('total_sum'))
+    graph_items = items.filter(date_incurred__year=2022, date_incurred__month=8).values('date_incurred').annotate(date_sum=Sum('amount'))
+    
+    if len(graph_items) > 0:
+        fig = px.line( 
+            x=[item['date_incurred'] for item in graph_items], 
+            #x=[num for num in range(len(graph_items))], 
+            y=[item['date_sum'] for item in graph_items], 
+            labels=dict(x='Date', y='Amount ($)'), 
+            markers=True
+        ) 
+        fig.update_xaxes(type='category') 
+        fig.update_traces(marker=dict(size=12)) 
+        chart = fig.to_html()  
+    else: 
+        chart = 0
+    
+    return render(request, 'display/account.html', {'account': account, 'items':items, 'total_spent':total_spent, 'chart':chart})

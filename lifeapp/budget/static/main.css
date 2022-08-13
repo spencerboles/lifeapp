@@ -10,3 +10,8 @@
     border-radius: 50%;
     display: inline-block;
   }
+
+.custom_card
+{
+    border: 1px solid #000; 
+}

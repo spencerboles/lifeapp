@@ -9,12 +9,12 @@ from django.utils.timezone import now
 
 class Item(models.Model):  
    
-    title = models.CharField(max_length=150, null=False, default='Item') 
+    title = models.CharField(max_length=150, null=False) 
     description = models.TextField(null=True, blank=True) 
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=Decimal('0.00')) 
     date_incurred = models.DateField(default=datetime.now) 
     bucket = models.ForeignKey("Bucket", on_delete=models.CASCADE) 
-    #is_revenue = models.BooleanField(default=False) 
+    is_revenue = models.BooleanField(default=False) 
     
 
     def __str__(self): 
@@ -22,7 +22,7 @@ class Item(models.Model):
 
 class Bucket(models.Model):  
     
-    title = models.CharField(max_length=150, null=False, default='Bucket') 
+    title = models.CharField(max_length=150, null=False) 
     description = models.TextField(null=True, blank=True) 
     is_budget = models.BooleanField(default=True) 
     account = models.ForeignKey("Account", on_delete=models.CASCADE) 

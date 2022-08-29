@@ -33,11 +33,31 @@ def add_item(request):
             form.save()  
             bank_account.save() 
              
-            return render(request, 'input/form.html', {"form": form, "title": "Item", 'success_message': 'Transaction Posted.'}) 
+            return render(request, 'input/form.html', {"form": form, "title": "Expense Item", 'success_message': 'Transaction Posted.'}) 
             #return redirect('/budget/add-item') 
     else: 
         form = ItemForm() 
-        return render(request, 'input/form.html', {"form": form, "title": "Item"})
+        return render(request, 'input/form.html', {"form": form, "title": "Expense Item"})
+
+def add_revenue_item(request): 
+    if request.method == 'POST': 
+        form = ItemForm(request.POST) 
+        if form.is_valid(): 
+            
+            amount = form.cleaned_data['amount']  
+            bank_account = Bucket.objects.get(pk=int(form.cleaned_data['bucket'].id)).account 
+
+            bank_account.balance = bank_account.balance + amount  
+            form.is_revenue = True
+           
+            form.save()  
+            bank_account.save() 
+             
+            return render(request, 'input/form.html', {"form": form, "title": " Revenue Item", 'success_message': 'Transaction Posted.'}) 
+            #return redirect('/budget/add-item') 
+    else: 
+        form = ItemForm() 
+        return render(request, 'input/form.html', {"form": form, "title": "Revenue Item"})
 
 def add_account(request): 
     if request.method == 'POST': 
@@ -109,7 +129,19 @@ def bucket_items_month(request, bucket_id, year, month):
 def account_items(request, account_id):  
     account = Account.objects.filter(id=account_id).first()
     items = Item.objects.filter(bucket__account=account_id)  
-    total_spent = items.filter(date_incurred__year=2022, date_incurred__month=8).annotate(total_sum=Sum('amount')).aggregate(Sum('total_sum'))
+    total_spent = items.filter(date_incurred__year=2022, date_incurred__month=8, is_revenue=False).annotate(total_sum=Sum('amount')).aggregate(Sum('total_sum'))
+    if total_spent['total_sum__sum'] == None:
+        total_spent = 0 
+    else: 
+        total_spent = float(total_spent['total_sum__sum'])
+    
+    total_revenue = items.filter(date_incurred__year=2022, date_incurred__month=8, is_revenue=True).annotate(total_sum=Sum('amount')).aggregate(Sum('total_sum'))
+
+    if total_revenue['total_sum__sum'] == None:
+        total_revenue = 0 
+    else: 
+        total_revenue = float(total_revenue['total_sum__sum'])
+
     graph_items = items.filter(date_incurred__year=2022, date_incurred__month=8).values('date_incurred').annotate(date_sum=Sum('amount'))
     
     if len(graph_items) > 0:
@@ -126,4 +158,4 @@ def account_items(request, account_id):
     else: 
         chart = 0
     
-    return render(request, 'display/account.html', {'account': account, 'items':items, 'total_spent':total_spent, 'chart':chart})
+    return render(request, 'display/account.html', {'account': account, 'items':items, 'total_spent':total_spent, 'total_revenue':total_revenue, 'chart':chart})

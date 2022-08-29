@@ -18,15 +18,15 @@ class BucketForm(ModelForm):
 class ItemForm(ModelForm): 
     class Meta: 
         model = Item 
-        fields='__all__' 
+        fields=['title', 'description', 'amount', 'date_incurred', 'bucket'] 
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control mb-2 mt-2'}), 
             'description': forms.Textarea(attrs={'class': 'form-control mb-2 mt-2'}), 
             'amount': forms.NumberInput(attrs={'class': 'form-control mb-2 mt-2'}), 
             'date_incurred': forms.DateInput(attrs={'class': 'form-control mb-2 mt-2'}), 
-            'bucket': forms.Select(attrs={'class': 'form-control mb-2 mt-2'}), 
-            'is_revenue': forms.CheckboxInput()
+            'bucket': forms.Select(attrs={'class': 'form-control mb-2 mt-2'}) 
+            #'is_revenue': forms.CheckboxInput()
         } 
 
 class AccountForm(ModelForm): 

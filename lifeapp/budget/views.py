@@ -158,11 +158,7 @@ def account_items(request, account_id):
     else: 
         chart = 0
     
-<<<<<<< HEAD
-    return render(request, 'display/account.html', {'account': account, 'items':items, 'total_spent':total_spent, 'total_revenue':total_revenue, 'chart':chart})
-=======
     return render(request, 'display/account.html', {'account': account, 'items':items, 'total_spent':total_spent, 'chart':chart})
 
 def budget_dashboard(request):
     return render(request, 'display/budget_dashboard.html')
->>>>>>> fc49898329785335c77c7b3b65da7f05e511916e

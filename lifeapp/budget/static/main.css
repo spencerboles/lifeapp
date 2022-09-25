@@ -14,4 +14,10 @@
 .custom_card
 {
     border: 1px solid #000; 
+} 
+
+.card-main
+{
+    border: 1px solid white; 
+    background-color: chartreuse !important;
 }

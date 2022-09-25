@@ -127,3 +127,6 @@ def account_items(request, account_id):
         chart = 0
     
     return render(request, 'display/account.html', {'account': account, 'items':items, 'total_spent':total_spent, 'chart':chart})
+
+def budget_dashboard(request):
+    return render(request, 'display/budget_dashboard.html')
